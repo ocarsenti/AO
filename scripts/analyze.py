@@ -6,18 +6,14 @@ Usage: python3 scripts/analyze.py [cpv_prefix]
 import sys
 import pandas as pd
 
+from decp_utils import load_cpv_segment
+
 CPV_PREFIX = sys.argv[1] if len(sys.argv) > 1 else "33"
 PARQUET_PATH = "data/decp_consolide.parquet"
 SAMPLE_SEED = 42
 SAMPLE_SIZE = 50
 
-df = pd.read_parquet(PARQUET_PATH)
-total_rows = len(df)
-
-df["codeCPV"] = df["codeCPV"].astype("string")
-mask = df["codeCPV"].str.startswith(CPV_PREFIX, na=False)
-seg = df[mask].copy()
-
+seg, total_rows = load_cpv_segment(CPV_PREFIX, PARQUET_PATH)
 n = len(seg)
 
 # fill rate per column
@@ -37,8 +33,13 @@ out_path = "reports/report_cpv_%s.md" % CPV_PREFIX
 with open(out_path, "w") as f:
     f.write("# Rapport DECP — segment CPV `%s`\n\n" % CPV_PREFIX)
     f.write("- Fichier source : `%s`\n" % PARQUET_PATH)
-    f.write("- Lignes totales (tous CPV) : %s\n" % f"{total_rows:,}".replace(",", " "))
-    f.write("- Lignes filtrées (CPV commence par `%s`) : %s (%.2f%% du total)\n\n"
+    f.write("> ℹ️ Le fichier consolidé contient une ligne par version successive de "
+            "chaque marché (historique de modifications) ; ~43,75% des lignes brutes "
+            "du fichier complet sont des doublons de version. Les chiffres ci-dessous "
+            "sont dédupliqués : un marché (`uid`) = une ligne, la plus récente "
+            "(`modification_id` maximum). Voir `scripts/decp_utils.py`.\n\n")
+    f.write("- Marchés distincts, tous CPV confondus : %s\n" % f"{total_rows:,}".replace(",", " "))
+    f.write("- Marchés filtrés (CPV commence par `%s`) : %s (%.2f%% du total)\n\n"
             % (CPV_PREFIX, f"{n:,}".replace(",", " "), n / total_rows * 100))
 
     f.write("## Taux de remplissage par colonne (%)\n\n")

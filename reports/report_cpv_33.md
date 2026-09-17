@@ -1,8 +1,10 @@
 # Rapport DECP — segment CPV `33`
 
 - Fichier source : `data/decp_consolide.parquet`
-- Lignes totales (tous CPV) : 3 278 751
-- Lignes filtrées (CPV commence par `33`) : 124 396 (3.79% du total)
+> ℹ️ Le fichier consolidé contient une ligne par version successive de chaque marché (historique de modifications) ; ~43,75% des lignes brutes du fichier complet sont des doublons de version. Les chiffres ci-dessous sont dédupliqués : un marché (`uid`) = une ligne, la plus récente (`modification_id` maximum). Voir `scripts/decp_utils.py`.
+
+- Marchés distincts, tous CPV confondus : 1 844 381
+- Marchés filtrés (CPV commence par `33`) : 75 784 (4.11% du total)
 
 ## Taux de remplissage par colonne (%)
 
@@ -15,143 +17,141 @@
 | codeCPV | 100.00% |
 | sourceDataset | 100.00% |
 | sourceFile | 100.00% |
-| objet | 99.98% |
-| lieuExecution_code | 99.81% |
-| lieuExecution_typeCode | 99.81% |
-| donneesActuelles | 99.26% |
-| modification_id | 99.26% |
-| dateNotification | 99.26% |
-| acheteur_departement_nom | 99.23% |
-| acheteur_commune_code | 99.23% |
-| acheteur_commune_nom | 99.23% |
-| acheteur_departement_code | 99.23% |
-| acheteur_nom | 99.23% |
-| acheteur_region_code | 99.23% |
-| acheteur_region_nom | 99.23% |
-| datePublicationDonnees | 99.07% |
-| dureeMois | 98.91% |
-| nature | 98.78% |
-| dureeRestanteMois | 98.65% |
-| titulaire_typeIdentifiant | 97.45% |
-| titulaire_id | 97.29% |
-| montant | 97.06% |
-| montant_rationalise | 97.06% |
-| formePrix | 96.77% |
-| procedure | 94.94% |
-| titulaire_activite_code | 94.76% |
-| titulaire_nom | 94.76% |
-| titulaire_activite_libelle | 94.62% |
-| titulaire_commune_nom | 93.86% |
-| titulaire_region_code | 93.86% |
-| titulaire_region_nom | 93.86% |
-| titulaire_departement_nom | 93.86% |
-| titulaire_departement_code | 93.86% |
-| titulaire_commune_code | 93.86% |
-| titulaire_categorie | 93.58% |
-| acheteur_latitude | 92.09% |
-| acheteur_longitude | 92.09% |
-| titulaire_latitude | 87.51% |
-| titulaire_longitude | 87.51% |
-| titulaire_distance | 80.49% |
-| acheteur_labels | 79.56% |
-| acheteur_categorie | 79.03% |
-| ccag | 49.70% |
-| typeGroupementOperateurs | 49.61% |
-| considerationsSociales | 48.66% |
-| considerationsEnvironnementales | 48.66% |
-| modalitesExecution | 48.23% |
-| techniques | 48.23% |
-| typesPrix | 44.13% |
-| marcheInnovant | 32.41% |
-| attributionAvance | 32.06% |
-| sousTraitanceDeclaree | 30.10% |
-| offresRecues | 23.46% |
-| tauxAvance | 20.72% |
-| origineUE | 15.85% |
-| origineFrance | 15.83% |
-| titulaire_labels | 10.86% |
-| idAccordCadre | 6.32% |
-| montant_anomalie_raisons | 1.57% |
-| montant_anomalie | 1.57% |
+| objet | 99.97% |
+| dureeMois | 99.89% |
+| dateNotification | 99.82% |
+| donneesActuelles | 99.82% |
+| modification_id | 99.82% |
+| dureeRestanteMois | 99.71% |
+| lieuExecution_typeCode | 99.69% |
+| lieuExecution_code | 99.69% |
+| datePublicationDonnees | 99.19% |
+| acheteur_nom | 98.76% |
+| acheteur_commune_code | 98.76% |
+| acheteur_departement_code | 98.75% |
+| acheteur_commune_nom | 98.75% |
+| acheteur_departement_nom | 98.75% |
+| acheteur_region_nom | 98.75% |
+| acheteur_region_code | 98.75% |
+| nature | 98.23% |
+| titulaire_typeIdentifiant | 97.51% |
+| titulaire_id | 97.25% |
+| montant | 96.58% |
+| montant_rationalise | 96.58% |
+| formePrix | 94.77% |
+| titulaire_nom | 94.18% |
+| titulaire_activite_code | 94.18% |
+| titulaire_activite_libelle | 94.02% |
+| titulaire_commune_nom | 93.30% |
+| titulaire_commune_code | 93.30% |
+| titulaire_region_code | 93.30% |
+| titulaire_region_nom | 93.30% |
+| titulaire_departement_nom | 93.30% |
+| titulaire_departement_code | 93.30% |
+| acheteur_longitude | 92.78% |
+| acheteur_latitude | 92.78% |
+| titulaire_categorie | 92.76% |
+| procedure | 91.96% |
+| titulaire_latitude | 86.66% |
+| titulaire_longitude | 86.66% |
+| acheteur_labels | 82.90% |
+| titulaire_distance | 80.21% |
+| acheteur_categorie | 78.43% |
+| ccag | 51.93% |
+| typeGroupementOperateurs | 51.79% |
+| considerationsSociales | 50.22% |
+| considerationsEnvironnementales | 50.22% |
+| modalitesExecution | 49.56% |
+| techniques | 49.56% |
+| typesPrix | 42.89% |
+| marcheInnovant | 40.61% |
+| attributionAvance | 40.26% |
+| sousTraitanceDeclaree | 38.65% |
+| offresRecues | 34.48% |
+| tauxAvance | 30.61% |
+| origineUE | 23.74% |
+| origineFrance | 23.71% |
+| titulaire_labels | 10.99% |
+| idAccordCadre | 7.96% |
+| montant_anomalie_raisons | 1.55% |
+| montant_anomalie | 1.55% |
 | acheteur_population | 0.00% |
 
 ## Répartition par année (dateNotification)
 
 | Année | Nombre de marchés |
 |---|---|
-| 5 | 2 |
 | 22 | 1 |
 | 23 | 2 |
 | 26 | 1 |
-| 205 | 1 |
 | 226 | 1 |
-| 2005 | 2 |
+| 2005 | 1 |
 | 2013 | 1 |
 | 2015 | 1 |
-| 2016 | 8 |
-| 2017 | 74 |
-| 2018 | 1 001 |
-| 2019 | 6 343 |
-| 2020 | 9 155 |
-| 2021 | 17 849 |
-| 2022 | 18 048 |
-| 2023 | 20 050 |
-| 2024 | 17 763 |
-| 2025 | 18 676 |
-| 2026 | 14 498 |
-| inconnue | 919 |
+| 2016 | 6 |
+| 2017 | 72 |
+| 2018 | 978 |
+| 2019 | 5 829 |
+| 2020 | 7 327 |
+| 2021 | 8 666 |
+| 2022 | 8 497 |
+| 2023 | 11 892 |
+| 2024 | 10 690 |
+| 2025 | 11 477 |
+| 2026 | 10 209 |
+| inconnue | 133 |
 
-> ⚠️ 10 ligne(s) portent une année aberrante (< 2013 : 5, 22, 23, 26, 205, 226…) — erreurs de saisie dans la donnée source (ex. `0026-06-17` au lieu de `2026-06-17`), pas des marchés réellement anciens. Négligeable (~0.008% du segment), non corrigé automatiquement pour éviter de deviner la vraie date.
+> ⚠️ 6 ligne(s) portent une année aberrante (< 2013 : 5, 22, 23, 26, 205, 226…) — erreurs de saisie dans la donnée source (ex. `0026-06-17` au lieu de `2026-06-17`), pas des marchés réellement anciens. Négligeable (~0.008% du segment), non corrigé automatiquement pour éviter de deviner la vraie date.
 
 ## Échantillon de 50 objets de marché (texte libre)
 
-1. MN DM SPE 2024-2028 STERLAB (LABO MXM)
-2. LOT 2 FOURNITURE DE VACCINS ACWY NIMENRIX
-3. Acquisition de consommables de filtration pour le Laboratoire Départemental d’Analyses de la Mayenne (LDA53)
-4. Fourniture de kit pour analyse de l’ADN tumoral circulant avec solution de bio informatique intégrée
-5. AO BM-Mix Taq polym+ tampon
-6. GHT Nièvre : Fourniture de réactifs et consommables pour les laboratoires du Centre de Biologie du Nivernais - Milieux liquides prêts à l’emploi (en tubes)
-7. Fourniture lots 66.1/3;90.2/6;91.2;95.1;96.3;103.2;105.1;109.3;110.1;111.5;112.3/4;116.2;117.1;121.2;123.5;124.1/4125.3;135.1/7;135.10;136.1/8;137.1/4;138.1/2;138.4;150.1/2;15.2;20.1/5;201.1/3;202.1/4;204.1/5;205.1/2;206.1/10;207.11;208.1/5;221.1;221.3
-8. Fourniture ENDO BLOC lots 28.1/2;54.1/4;170.1/2;251.1-3-7-9/13;252.3;253.1-4/7;254;257.1;258;259;260.7;261;262;263;264;266;267.1/3-5;271.1-3-4-6-8-10;272.1/4;274.1/2;275.1;279.1/9;282.2/3;286.1;288.1/6;291.1/2;292.1/9;293.2-4/5-7-9/10;295.1-3;321.1/3;324.1
-9. Fourniture de couches jetables nourrissons pour les structures de la petite enfance: Lot 1 : Fourniture de couches jetables nourrissons pour les structures de la petite enfance
-10. Fourniture spécial. pharm GAPLCA lots 74.1,76.4,170.1/2,346.1/3,407.1,679.1,680.1/2,683.1/2,687.1/4,687.1/4,696.1,739.1/2,742.1/3,747.1/2,756.1/2,760.1/6,770.3/4,867.1,867.4,868.4,969.1/2,1019.3,1022.1,1033.1/2,1047.1/3,1059.1,1066.1,1079.2,1103.1,1104.1/3
-11. Fourniture de dispositifs médicaux de perfusion, de prélèvement et d’exploration, d’abord urogénital, digestif, nerveux et respiratoire au profit du GAPLCA lots 86.1-3
-12. Soins du corps _ Lot 85_25-01DMN
-13. FOURNITURES DE DISPOSITIFS MEDICAUX POUR LA NEURORADIOLOGIE INTERVENTIONNELLE POUR LE CHU ROUEN NORMANDIE - Lot 53: Cathéter d’angiographie de diamètre 5 et 6F à tressage renforcé toutes courbures  adaptées pour la neuroradiologie de longueur inférieure ou égale à 130cm.
-14. Fourniture de spécialités pharmaceutiques au profit du GAPLCA lots 909.1/2,910.1/5,950.2/3,982.2
-15. Fourniture de réactifs et de consommables de laboratoire pour le Centre hospitalier Bretagne Atlantique
-16. Fourniture de spécialités pharmaceutiques au profit du GAPLCA lots 597.1,605.2,607.1,611.1
-17. Fourniture de spécialités pharmaceutiques au profit du GAPLCA lots 1137.1/7,1140.1/3
-18. PANSG PANSEMENT ET MATERIELS DE STERILISATION - 89 LOTS VOIR DETAIL DANS CAHIER DES CHARGES
-19. AOO-2020-2158 à 2164 Dispositifs pour ablation de fibrilation atriale - INTRODUCTEUR type SLO
-20. Fourniture, installation, mise en services de moniteurs de neuromonitoring, des consommables et prestations de maintenance associées
-21. AO MEDICAMENTS ANTINEOPLASIQUES ET IMMUNOMODULATEURS (Classe ATC L)
-22. Fourniture de spécialités pharmaceutiques GAPLCA lots 840.2,841.1/6,843.3,852.1/3,854.1,867.2/3,868.1/3,877.4/6,879.5,895.1,900.1,915.4/7,917.1/4,922.2/4,572.1,573.1,922.8/9,928.3,932.1/4,933.1,933.4,937.1/3,941.3,942.2,943.1,944.2/4,960.3,962.1,962.5
-23. 23M01 GAULOYS LABORATOIRE XO_ALLOGA
-24. Fourniture lots 66.1/3;90.2/6;91.2;95.1;96.3;103.2;105.1;109.3;110.1;111.5;112.3/4;116.2;117.1;121.2;123.5;124.1/4125.3;135.1/7;135.10;136.1/8;137.1/4;138.1/2;138.4;150.1/2;15.2;20.1/5;201.1/3;202.1/4;204.1/5;205.1/2;206.1/10;207.11;208.1/5;221.1;221.3
-25. Maintenance et fourniture des pièces détachées, accessoires et consommables des équipements exclusivement entretenus par la société CRYO BIO SYSTEMS
-26. Acquisition de matériels de réanimation cardiaque et de ventilation médicale avec exécution de prestations associées - Massage cardiaque automatisé pour pompiers
-27. Fourniture de produits de santé du système nerveux - GAC-2023-048_2024-SNMS1_SAD M_2630- MEDIC2021
-28. MEDICAMENTS ET PRODUITS PHARMACEUTIQUES - SECTEUR EST HERAULT
-29. MN SIEMENS REACTIFS MAINTENANCE
-30. Fourniture de consommables pour filtration, pour anatomie-cytopathologie, pour graveur de cassettes, pour sytème d’impression et filmeuse de lames
-31. Pousse TIVA
-32. Fourniture de prothèses chirurgicales et dispositifs médicaux  2022chro0014 - DISPOSITIF DE REINSERTION MENISCALE - Marché n° 232-047
-33. DMNS 2023-010 _ Lot_75
-34. AGUETTANT GAO29 2023/SLM
-35. Fourniture de médicaments 2023 - 2024 - L04AC03 ANAKINRA
-36. La présente consultation porte sur la conclusion d’un accord-cadre ayant pour objet l’acquisition et la location d’équipements lourds de bloc opératoire et l’exécution de prestations associées. La description technique des équipements et prestations est d
-37. Fourniture de dispositifs médicaux relatifs aux pansements, compresses hémostatiques stériles et couvertures à usage opérationnel - couverture chaufferette type ready-heat II ou équivalent
-38. FOURNITURE DE DISPOSITIFS MEDICAUX NON IMPLANTABLES STERILES (Digestif, Urologie/Gynécologie, Chirurgie, Respiratoire, ORL, Stomatologie, Dialyse, Cardiovasculaire, Perfusion, Biopsie et Consommables d’équipement) Lot 24 DM non implantables Système Digestif et métabolique GAMIDA ou équivalent
-39. Fourniture de prothèses cervicales à noyau fixe pour le CHRU de Tours
-40. FOURNITURE DE PRODUITS D?INCONTINENCE, AUTRES CONSOMMABLES ET SERVICES ASSOCIES LOT 6 CARRES ET GANTS
-41. RH MSP16 DELBERT 22-25
-42. Identification des anticorps anti-HLA sur bille à antigène HLA unique (single antigen) avec mise à disposition d un automate de technologie LUMINEX
-43. Fourniture de dispositifs médicaux endoscopie digestive, équipements de protection individuelle, drapage opératoire, désinfection - stérilisation et d’instrumentation chirurgicale lots 70.1/5;72.1/5;73.1/5;76.1/8;77.1/3;82.1/3;223.7;239.1;386.1
-44. AO DISPOSITIFS MEDICAUX  2024/2028
-45. Fourniture de dispositifs médicaux non implantables de Dialyse, Cathétérisme central et périphérique (MIDLINE), Système cardiovasculaire, Kits de surveillance de pression, Consommables haute pression pour injecteur, Système nerveux et Ophtalmologie - Lots 101 à 177 - Lot 137: Solution oculaire tamponnée électrolytes, stérile flacon en verre
-46. Fourniture spécial. pharm GAPLCA lots 74.1,76.4,170.1/2,346.1/3,407.1,679.1,680.1/2,683.1/2,687.1/4,687.1/4,696.1,739.1/2,742.1/3,747.1/2,756.1/2,760.1/6,770.3/4,867.1,867.4,868.4,969.1/2,1019.3,1022.1,1033.1/2,1047.1/3,1059.1,1066.1,1079.2,1103.1,1104.1/3
-47. Fourniture de médicaments un an 2022 - J05AG01 NEVIRAPIN
-48. Fourniture de dispositifs médicaux de perfusion, de prélèvement et d’exploration, d’abord urogénital, digestif, nerveux et respiratoire lots 1.1;8.1/4;9.1/2;10.1/11;11.1/7;19.1/6-17;66.1/7;67.1;139.1;140.1;193.1/2;203.1/4;218.4/5
-49. Fourniture spécial. pharm GAPLCA lots 74.1,76.4,170.1/2,346.1/3,407.1,679.1,680.1/2,683.1/2,687.1/4,687.1/4,696.1,739.1/2,742.1/3,747.1/2,756.1/2,760.1/6,770.3/4,867.1,867.4,868.4,969.1/2,1019.3,1022.1,1033.1/2,1047.1/3,1059.1,1066.1,1079.2,1103.1,1104.1/3
-50. Fourniture de dispositifs médicaux ENDO BLOC lots 99.1/2;100.1;101.1;243.1/4;401.1;401.3;403.1;404.1/2;405.1/2;406.1/3;407.1/2;408.1/3;410.1/412.1/3;413.1;414.1/4;415.1/2;416.1;416.3;418.1;419.1;420.1;424.1;427.1
+1. AOMED1 / V03AF04 - LEVOFOLINATE DE CALCIUM
+2. SPECIALITES EN ACCES PRECOCE FOURNIES PAR RHYTHM PHARMACEUTICALS
+3. PharmacoTox- Médicaments Toxiques- Biochimie UPLC et CQI spécifiques - Kit de dosage HPLC Catecholamines urinaires
+4. Fourniture de dispositifs médicaux stériles et non stériles : d’abord digestif, genito-urinaire, respiratoire et ORL » pour les établissements adhérant au GCS Achats du Centre
+5. Fourniture de produits de nutrition entérale adulte et pédiatrique, CNO, de DADFMS pour la prise en charge des MMH et de laits spécifiques au profit des établissements membres du GCS GRAPS Grand Est - lot 01: Mélange polymérique - Produit adulte normocalorique normoprotidique
+6. AO23DMS_Lot 512
+7. Matériels d’endoscopie médicale avec exécution des prestations associées et prestations de gestion de parc  - Endomicroscopie
+8. Fourniture de produits de nutrition entérale par sonde, adulte et pédiatrique et de produits diététiques pour le compte du gpt de commandes coordonné par le CH de Verdun/St-Mihiel: Lot 6: Boisson lactée HP HC enrichie en AA
+9. Médicament sous Autorisation d’Accès Compassionnel (AAC) et Autorisation d’Accès Précoce Pré-AMM (AP1) 2025
+10. DMS Orthopédie et traumatologie lot 49
+11. LOT 2201113 - DISPOSITIF DE FIXATION 18G POUR CATHÉTER PÉRIDURAL - GHT 11 - Fourniture de dispositifs médicaux, médico-techniques non stériles et produits non tissés
+12. Fourniture de dispositifs médicaux de soins dentaires AO-2025-006
+13. DISPOSITIF DE FERMETURE VASCULAIRE BIORESORBABLE
+14. DISPOSITIFS MEDICAUX DE REHABILITATION APRES LARYNGECTOMIE TOTALE
+15. GHT - Fourniture de dispositifs médicaux implantables - AO Cardio - ICA22<br />Familles Vasculaire, Cardiologie Interventionnelle, Chirurgie Cardiaque, Embolisation, Rythmologie
+16. Fourniture de médicaments radiopharmaceutiques diagnostiques TEP pour l’Oncopole Claudius Regaud: Lot 3 : 18F - DOPA
+17. DMS 2024-02 AO 092 fourniture de Dispositifs Médicaux Stériles à usage unique  *Casaque, drapage opératoire, compresse, instrument, cupule, tampon, set, pansement tous types, thérapie par pression négative, brosse chirurgicale, immobilisation, contention / compression, maintien. *Dialyse, aphérèse, immunophérèse *Biberon, lacs suspenseurs, dispositifs médicaux non implantables : médecine, chirurgie, électrophysiologie, radiologie, angioplastie, coronarographie. *Dispositifs médicaux implantables toutes spécialités  - IMPLANT POLYPROPYLENE
+18. BRENTUXIMAB VEDOTINE FORME INJECTABLE
+19. Fourniture de produits d’hygiène pour le groupement de commande de Sète agglôpole méditerranée
+20. TLS01-2026 - M_3339 - AMOXICILLINE + ACIDE CLAVULANIQUE INJECTABLE
+21. DISPOSITIFS MEDICAUX STERILES : ANESTHESIE ET REANIMATION - Cathéter veineux central insertion périphérique Picc 4F 60CM, 5F 60CM
+22. AGP835-Lot 133
+23. Fourniture de dispositifs médicaux de cardiologie interventionnelle - Relance 1
+24. FOURNITURE DE SPECIALITES PHARMACEUTIQUES DES CLASSES ATC : A-B-C-D-G-M-N-P-R-V pour le CH du Mans, le CH de la Ferté Bernard, le PSSL, le CH de St Calais, le CH de Château du Loir, le CH du Lude, le CH de Bonnétable, le CH de Beaumont sur Sarthe, le CH d
+25. Accord-Cadre multi-attributaires à marchés subséquents relatif à la fourniture de produits pharmaceutiques (médicaments et dispositifs médicaux) par grossiste répartiteur - centre hospitalier spécialisé Auxerre
+26. 210288-Lot 2 : Bandelette non résorbable de soutènement sous urétral par voie transobturatrice
+27. Acquisition de chariots brancards pour ambulances et d’équipements associés, d’accessoires, de consommables, de pièces détachées pour les membres du GCS UniHA - Chaise portoir mécanique
+28. Implants d’ophtalmologie à usage unique pour le CH Argentan, le CH Aunay-Bayeux, le CH Falaise, le CH Lisieux et le CHU de Caen - IMPLANT CATARACTE TORIQUE
+29. DIAGNOSTIC AMONT ET PLAN D ACTION POUR LA REDUCTION DES MICROPOLLUANTS SUR 3M
+30. Fourniture de dispositifs médicaux non stériles et autres consommables non stériles - Circuits pour respirateurs et accessoire associés
+31. BRIVARACETAM
+32. Fournitures et livraison de spécialités pharmaceutiques pour le GHT du Limousin - ARTICAINE ET ADRENALINE
+33. Lot 41 : SYSTEME DE DRAINAGE THORACIQUE POUR PNEUMOLOGIE - GAPSCA - Fourniture de dispositifs médicaux d’aspiration et drainage (2025/2028)
+34. Le marché porte sur l’achat d’un automate permettant de multiplexer les anticorps et ainsi mettre en évidence plusieurs protéines d’intérêt sur la même coupe de tissu. Cet achat s’inscrit dans le cadre du projet IHU EVEREST, premier et seul IHU sur le site lyonnais, spécialisé dans les maladies chroniques du foie.
+35. FOURNITURE DE REACTIFS DE BACTERIOLOGIE - Lot 14 : Gélose chromogène pour Carbapénémase (type OXA 48) et détection combinée
+36. Dispositifs médicaux stériles non implantables :  -	Anesthésie réanimation ; chirurgie ; circulation extracorporelle ; cardiologie ; médecine ; endoscopie ; gynécologie – obstétrique ; prélèvement biopsie -	Autotransfusion         -	Dispositif diagnost
+37. Fourniture de dispositifs médicaux - Abord Respiratoire RES22 au profit des adhérents du GCS UniHa M_2620 - NÉBULISEUR AVEC MASQUE ET TUBULURE POUR PATIENT ADULTE TRACHÉOTOMISÉ
+38. 21DMS- AUBIN - GROUPEMENT GAULOYS
+39. PA MED NEOMERCAZOLE
+40. Fourniture de dispositifs médicaux pour valves  cardiaques, prothèses vasculaires et système d’assistance ventriculaire (18 lots)
+41. YM811-Lot 271
+42. Ght_MED_2025-019_AC_Fourniture De Médicaments [2025-2027] - racecadotril forme orale indication pédiatrique
+43. FOURNITURE DE DISPOSITIFS MEDICAUX
+44. FOURNITURE DE DISPOSITIFS MEDICAUX
+45. FOURNITURE DE MEDICAMENTS ANTI-INFECTIEUX
+46. FOURNITURE DE DISPOSITIFS MEDICAUX STERILES DE CHIRURGIE 2024 LOT 141
+47. PROTHESE FIXE  ASSISTEE OU NON PAR CFAO
+48. Fourniture d’un système de lecture et d’interprétation des PLA2RI et THSD7A : Matériels, réactifs, consommables et maintenance pour le laboratoire d’immunologie du CHU de Nice
+49. 2025-0589 FOURNITURE DE DISPOSITIFS MEDICAUX IMPLANTABLES : CARDIOLOGIE - MN SPICA25 (2025-2028)
+50. MASQUES CHIRURGICAUX
