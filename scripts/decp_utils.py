@@ -98,6 +98,80 @@ def can_merge(tokens_a, tokens_b):
     return True
 
 
+def build_titulaire_canon_map(seg, classes_csv_path):
+    """A partir d'un segment (avec titulaire_nom, montant_anomalie) et du
+    fichier de classification titulaires_top200_classes.csv, retourne
+    (base, name_to_categorie, name_to_canon) où `base` est le segment sans
+    les lignes montant_anomalie renseignées ni titulaire_nom manquant, et les
+    deux dicts associent chaque titulaire_norm rencontré à la catégorie /
+    au nom canonique du groupe (parmi les 200 titulaires classés), quand il
+    matche un groupe classé."""
+    import pandas as pd
+
+    classes = pd.read_csv(classes_csv_path)
+    classes_map = dict(zip(classes["titulaire_normalise"], classes["categorie"]))
+
+    base = seg[seg["montant_anomalie"].isna()].copy()
+    base["titulaire_norm"] = base["titulaire_nom"].map(normalize_titulaire)
+    base = base[base["titulaire_norm"] != ""].copy()
+
+    distinct_names = sorted(set(base["titulaire_norm"]) | set(classes_map))
+    groups = cluster_titulaire_names(distinct_names)
+
+    name_to_categorie = {}
+    name_to_canon = {}
+    for members in groups.values():
+        classified_members = [m for m in members if m in classes_map]
+        if not classified_members:
+            continue
+        cats = {classes_map[m] for m in classified_members}
+        canon = classified_members[0]
+        lbl = " / ".join(sorted(cats))
+        for m in members:
+            name_to_categorie[m] = lbl
+            name_to_canon[m] = canon
+
+    return base, name_to_categorie, name_to_canon
+
+
+# ---------------------------------------------------------------------------
+# Classification de l'acheteur : centrale/groupement d'achat mutualisé vs
+# établissement précisément identifiable vs libellé DECP trop générique.
+# Construite par relecture manuelle des acheteur_nom du segment CPV 33 x
+# FABRICANT_DM (cf. couverture_acheteurs_dm.py) — pas de champ DECP fiable
+# pour cette distinction (acheteur_categorie ne la fait pas : NaN pour
+# RESAH/UniHA dans ce jeu de données).
+# ---------------------------------------------------------------------------
+
+CENTRALE_GROUPEMENT = {
+    "RESEAU DES ACHETEURS HOSPITALIERS",
+    "GCS GROUPEMENT REGIONAL D'ACHATS DE PRODUITS DE SANTE GRAND EST",
+    "GROUPEMENT COOPERATION SANITAIRE - UNION DES HOPITAUX POUR LES ACHATS",
+    "GROUPEMENT DE COOPERATION SANITAIRE HACOM",
+    "GROUPEMENT HOSPITALIER DE TERRITOIRE GRAND PARIS NORD-EST",
+    "UNION DES GROUPEMENTS D'ACHATS PUBLICS (UGAP)",
+    "GROUPEMENT DE COOPERATION SANITAIRE ACHATS DU CENTRE",
+    "GROUPEMENT HOSPITALIER DE TERRITOIRE GRAND PARIS NORD-EST "
+    "(GROUPEMENT HOSPITALIER DE TERRITOIRE 93 EST)",
+    "GCS ACHATS EN NOUVELLE-AQUITAINE",
+    "GIE CONSORTIUM D'ACHATS DES CLCC",
+}
+
+GENERIQUE_NON_IDENTIFIABLE = {
+    "CENTRE HOSPITALIER UNIVERSITAIRE",
+    "CENTRE HOSPITALIER GENERAL",
+    "MAISON DE RETRAITE",
+}
+
+
+def classify_acheteur(name):
+    if name in CENTRALE_GROUPEMENT:
+        return "CENTRALE_GROUPEMENT"
+    if name in GENERIQUE_NON_IDENTIFIABLE:
+        return "GENERIQUE_NON_IDENTIFIABLE"
+    return "ETABLISSEMENT_IDENTIFIE"
+
+
 def cluster_titulaire_names(distinct_names):
     """Regroupe une liste de noms déjà normalisés (normalize_titulaire) par
     variantes proches (union-find sur inclusion "significative" de tokens).

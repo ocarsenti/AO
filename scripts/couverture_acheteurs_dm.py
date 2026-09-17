@@ -22,40 +22,12 @@ import sys
 
 import pandas as pd
 
-from decp_utils import cluster_titulaire_names, load_cpv_segment, normalize_titulaire
+from decp_utils import cluster_titulaire_names, classify_acheteur, load_cpv_segment, normalize_titulaire
 
 CPV_PREFIX = sys.argv[1] if len(sys.argv) > 1 else "33"
 PARQUET_PATH = "data/decp_consolide.parquet"
 CLASSES_PATH = "reports/titulaires_top200_classes.csv"
 OUT_PATH = "reports/report_couverture_acheteurs_dm.md"
-
-CENTRALE_GROUPEMENT = {
-    "RESEAU DES ACHETEURS HOSPITALIERS",
-    "GCS GROUPEMENT REGIONAL D'ACHATS DE PRODUITS DE SANTE GRAND EST",
-    "GROUPEMENT COOPERATION SANITAIRE - UNION DES HOPITAUX POUR LES ACHATS",
-    "GROUPEMENT DE COOPERATION SANITAIRE HACOM",
-    "GROUPEMENT HOSPITALIER DE TERRITOIRE GRAND PARIS NORD-EST",
-    "UNION DES GROUPEMENTS D'ACHATS PUBLICS (UGAP)",
-    "GROUPEMENT DE COOPERATION SANITAIRE ACHATS DU CENTRE",
-    "GROUPEMENT HOSPITALIER DE TERRITOIRE GRAND PARIS NORD-EST "
-    "(GROUPEMENT HOSPITALIER DE TERRITOIRE 93 EST)",
-    "GCS ACHATS EN NOUVELLE-AQUITAINE",
-    "GIE CONSORTIUM D'ACHATS DES CLCC",
-}
-
-GENERIQUE_NON_IDENTIFIABLE = {
-    "CENTRE HOSPITALIER UNIVERSITAIRE",
-    "CENTRE HOSPITALIER GENERAL",
-    "MAISON DE RETRAITE",
-}
-
-
-def classify_acheteur(name):
-    if name in CENTRALE_GROUPEMENT:
-        return "CENTRALE_GROUPEMENT"
-    if name in GENERIQUE_NON_IDENTIFIABLE:
-        return "GENERIQUE_NON_IDENTIFIABLE"
-    return "ETABLISSEMENT_IDENTIFIE"
 
 
 # ---------------------------------------------------------------------------
